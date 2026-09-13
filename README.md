@@ -1,66 +1,46 @@
 # dek-d-paywall-bypass
 
-Simple JavaScript snippet to read locked webtoon chapters on writer.dek-d.com without spending coins or purchasing access.
+Read locked webtoon chapters on writer.dek-d.com without spending coins.
 
-## How to read Dek-D chapters for free
+## how it works
 
-Dek-D (dek-d.com / writer.dek-d.com) is a popular Thai novel and webtoon platform where authors publish serialized stories. Some chapters require coins to unlock. This tool lets you bypass the coin paywall and read locked chapters without purchasing.
+Dek-D sends the full chapter to your browser before checking if you paid. All the webtoon panel URLs and footnote text get loaded into `window.chapterData` on page load, then the page just slaps a CSS blur + purchase button on top. The content is sitting right there in memory — this snippet yanks it out and renders it.
 
-## How it works
+No API calls, no coin deduction, nothing touches the server. It's all client-side.
 
-When you open a locked chapter on Dek-D, the server sends the full chapter data — including all webtoon panel image URLs and footnote text — to your browser as a JavaScript object called `window.chapterData`. The page then applies a CSS blur overlay and shows a "purchase with coins" button on top. The actual content is already in your browser memory; the paywall is purely a client-side UI block.
+## usage
 
-This snippet reads `window.chapterData`, removes the blur/purchase overlay, and renders all the chapter images and footnote directly into the page. No coins deducted, no server-side request needed.
+**Bookmarklet (use this if console is blocked):**
 
-## How to use
+Dek-D loads a devtools prevention script so `F12` might not work. The bookmarklet bypasses that entirely.
 
-### Method 1: Bookmarklet (recommended)
+1. Open a locked chapter (`writer.dek-d.com/.../viewlongc.php?id=XXXX&chapter=YY`)
+2. Paste all of `bookmarkver.js` into your address bar, hit Enter
+3. Or save it as a bookmark and just click it on any locked page
 
-1. Open the locked chapter page on writer.dek-d.com (e.g. `https://writer.dek-d.com/.../viewlongc.php?id=XXXX&chapter=YY`)
-2. Copy the entire content of `bookmarkver.js` (starts with `javascript:`)
-3. Paste it into your browser's address bar and press Enter
-4. Alternatively, create a new bookmark, paste the code as the URL, then click the bookmark while on any locked chapter
+> browsers eat the `javascript:` prefix sometimes — if nothing happens, retype `javascript:` at the start manually
 
-> Note: Some browsers strip the `javascript:` prefix when pasting in the address bar. If nothing happens, type `javascript:` manually at the start before pressing Enter.
+**Console (if devtools works):**
 
-### Method 2: Browser Console
+Paste `consolesnippet.js` into the console. Same code, just formatted for readability.
 
-1. Open the locked chapter page
-2. Open DevTools (F12 or Ctrl+Shift+I)
-3. Go to the Console tab
-4. Paste the contents of `consolesnippet.js` and press Enter
+## tested on
 
-If the console is disabled (Dek-D loads a devtools prevention script), use Method 1 instead — the bookmarklet works regardless.
+- Chrome 152 (Windows)
+- Edge (Windows)
+- Firefox (Linux)
 
-## What it bypasses
+Breaks on text chapters — those load content via an authenticated API after you pay. This only works on webtoon/image chapters where the content is preloaded.
 
-- Coin-locked webtoon chapters (image-based content)
-- The blur overlay on locked chapters
-- The purchase prompt that requires Dek-D coins
+## files
 
-## What it does NOT do
+- `bookmarkver.js` — the one-liner, paste in URL bar or save as bookmark
+- `consolesnippet.js` — pretty-printed version for console
 
-- Does not hack accounts or steal coins
-- Does not modify server-side data
-- Does not work on text-only chapters that load content via authenticated API calls after payment
-- Does not bypass Cloudflare Turnstile (you still need to pass the bot check to load the page)
+## disclaimer
 
-## Files
+Educational purposes. Shows a client-side paywall weakness where content ships before payment verification. Not affiliated with Dek-D. Support authors if you can — buy chapters, follow their work, leave comments. I'm just documenting what's already in your browser's memory.
 
-| File | Description |
-|------|-------------|
-| `bookmarkver.js` | One-liner `javascript:` URL — paste in address bar or save as bookmark |
-| `consolesnippet.js` | Formatted version for browser console |
-| `README.md` | This file |
+## keywords
 
-## Browser compatibility
-
-Tested on Chrome, Edge, and Firefox. Should work on any modern browser that supports `javascript:` bookmarklets.
-
-## Disclaimer
-
-This project is for educational purposes only. It demonstrates a client-side paywall weakness where content is sent to the browser before payment verification. Not affiliated with Dek-D Interactive Co., Ltd. Use at your own risk and consider supporting authors by purchasing chapters through legitimate means.
-
-## Keywords
-
-dek-d bypass, dek-d free chapters, dek-d paywall bypass, dek-d coin bypass, read dek-d for free, writer.dek-d.com unlock chapter, dek-d webtoon free, dek-d novel free, niyay dek-d bypass, dek-d hack, dek-d script, dek-d bookmarklet, javascript paywall bypass, client-side paywall, webtoon reader bypass, thai webtoon free, dek-d coin hack, unlock dek-d chapter, dek-d อ่านฟรี, นิยาย dek-d ฟรี, เว็บตูน dek-d ฟรี
+dek-d bypass, dek-d free chapters, dek-d paywall bypass, read dek-d for free, writer.dek-d.com unlock, dek-d webtoon free, dek-d coin bypass, niyay dek-d free, dek-d bookmarklet, javascript paywall bypass, dek-d อ่านฟรี, นิยาย dek-d ฟรี, เว็บตูน dek-d ฟรี, อ่านตอนล็อค dek-d, dek-d ปลดล็อกตอน, บายพาส dek-d, เว็บตูนฟรี
